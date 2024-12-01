@@ -1,6 +1,7 @@
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
@@ -27,8 +28,14 @@ public class Run {
         final var rList = right.stream().sorted().toList();
         final var lList = left.stream().sorted().toList();
         final var range = IntStream.range(0, rList.size());
+        //Distance a
         System.out.println(range.map(i -> Math.abs(rList.get(i) - lList.get(i)))
         .sum());
+
+        //Total similarity b
+        System.out.println(lList.stream()
+        .map(l -> rList.stream().filter(r -> r.equals(l)).count() * l)
+        .reduce(0L, Long::sum));
 }
 
 }
